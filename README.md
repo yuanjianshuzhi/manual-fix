@@ -168,6 +168,13 @@ __m128i,            _mm_castsi128_ps,      _mm_castsi128_pd,       N/A
 \*(__m128d\*)((char *)(*xmmword_142D3E5F8_ptr) + 8 * v99) = _mm_add_pd...
 
 
+如果需要对一个__m128/__m128i/__m128d的变量赋值0，应该修改为：
+
+错误： v67 = 0；
+
+修改为：v67 = {0,0}；
+
+
 ## 关键规则 (Critical Rules)
 
 1. **Short & Unique SEARCH:** Use only 2-4 lines of unique code for SEARCH blocks in replacements. Avoid large chunks of surrounding code.
