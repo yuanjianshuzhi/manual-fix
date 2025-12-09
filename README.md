@@ -147,26 +147,25 @@ v239[1] = (uint64)"Upd ii to VLAM:";
 
 他们三个之间的转换需要使用函数，不能靠指定类型完成转换
 
-源类型 ↓ / 目标类型 →,__m128 (单精度浮点向量),__m128d (双精度浮点向量),__m128i (整数向量)
-
- __m128,            N/A,                   _mm_castps_pd,          _mm_castps_si128
- 
- __m128d,           _mm_castpd_ps,         N/A,                    _mm_castpd_si128
- 
-__m128i,            _mm_castsi128_ps,      _mm_castsi128_pd,       N/A
+| 源类型 ↓ / 目标类型 → | __m128 (单精度浮点向量) | __m128d (双精度浮点向量) | __m128i (整数向量) |
+| --------------------- | ----------------------- | ------------------------ | ------------------ |
+| __m128                | N/A                     | _mm_castps_pd            | _mm_castps_si128   |
+| __m128d               | _mm_castpd_ps           | N/A                      | _mm_castpd_si128   |
+| __m128i               | _mm_castsi128_ps        | _mm_castpd_si128         | N/A                |
 
 同时可以使用_mm_cvtsd_si64将__m128d转换成long long，这个通常出现在需要&运算的时候
 
 如果要将__m128d赋值给其他变量，需要如下修改：
 
 例如：
-
+```cpp
 *(int128 *)((char *)(*xmmword_142D3E5F8_ptr) + 8 * v99) = (int128)_mm_add_pd...
+```
 
 修改为：
-
-\*(__m128d\*)((char *)(*xmmword_142D3E5F8_ptr) + 8 * v99) = _mm_add_pd...
-
+```cpp
+*(__m128d*)((char *)(*xmmword_142D3E5F8_ptr) + 8 * v99) = _mm_add_pd...
+```
 
 如果需要对一个__m128/__m128i/__m128d的变量赋值0，应该修改为：
 
